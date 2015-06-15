@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Welcome to SICSR Social Media Website</title>
+        <script type="text/javascript" src="resources/Theme1/1_0/js/jquery.js" ></script>              
+        <script type="text/javascript" src="resources/Theme1/1_0/js/bootstrap.min.js"></script>
+        <link href="resources/Theme1/1_0/css/bootstrap.min.css" rel="stylesheet"/>
+    </h:head>
+
+    <h:body style="background-image: url('resources/bg.jpg');background-repeat: repeat;">
+        <div class="col-lg-12 text-center"><h1 class="h1" style="color: #ff6600">Welcome to Sicsr Social Media Website</h1></div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+
+            <p:panel id="homeHeader" style="margin-top: 40px;">   
+
+
+
+                <h:form>
+                    <div class="row">
+                        <p:inputText class="form-control" id="userName" value="#{mainv2ManagedBean.userName}" placeholder="Pease Enter your Username" required=""/>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <p:inputText class="form-control" id="password" type="password" value="#{mainv2ManagedBean.password}" required="" placeholder="Please Enter your Password"/>
+                    </div>
+                    <br />
+                    <p:commandButton class="btn btn-primary" value="Submit" action="#{mainv2ManagedBean.onClickSubmit(1)}"></p:commandButton>
+                    <p:commandButton class="btn btn-primary" value="Register" action="case2" />
+                    
+                    <p:outputLabel style="font-weight: bold" value="${mainv2ManagedBean.loginStatus}"/>
+                </h:form>
+            </p:panel> 
+        </div>
+        <div class="col-md-4"></div>
+    </h:body>
+</html>

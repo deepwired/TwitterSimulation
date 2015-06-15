@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>
+            ${mainv2ManagedBean.viewFriendName}'s Page
+        </title>
+    </h:head>
+    <h:body style="background-image: url('resources/bg.jpg');background-repeat: repeat;">
+    <div style="width: 80%; margin-left: auto;margin-right: auto;">
+     
+        <h:form>
+            <p:menubar>
+                <p:menuitem value="Home" icon="/resources/demo/images/dock/home.png" action="home.xhtml"/>                
+                <p:menuitem value="Profile" icon="/resources/demo/images/dock/music.png" action="${mainv2ManagedBean.onClickProfile()}"/>
+                <p:menuitem value="Message" icon="/resources/demo/images/dock/music.png" action="message.xhtml"/>
+                <p:menuitem value="Connections" icon="/resources/demo/images/dock/video.png" action="relation.xhtml"/>
+                <p:menuitem value="About the Creators" icon="/resources/demo/images/dock/video.png" action="OurTeam.xhtml"/>                
+                <p:menuitem value="Log Out" icon="fa fa-mortar-board" action="login.xhtml"/>                            
+              
+            </p:menubar>           
+        </h:form>
+            <h:form>
+                <p:dock position="bottom">
+                    <p:menuitem value="Home" icon="/resources/Home-icon.png" action="home.xhtml"/>                
+                    <p:menuitem value="Profile" icon="/resources/User-icon.png" action="${mainv2ManagedBean.onClickProfile()}"/>
+                    <p:menuitem value="Message" icon="/resources/message_new.png" action="message.xhtml"/>
+                    <p:menuitem value="Connections" icon="/resources/Relationship-icon.png" action="relation.xhtml"/>
+                    <p:menuitem value="About the Creators" icon="/resources/about-us.png" action="OurTeam.xhtml"/>                
+                </p:dock>
+            </h:form>
+
+
+        <div>
+            <center>
+                <h:graphicImage value="/resources/UserProfilePictures/${mainv2ManagedBean.viewFriendName}.jpg" height="200" width="200" />    <h1><h:outputLabel value="Welcome to ${mainv2ManagedBean.viewFriendName}'s Profile Page"/></h1>
+            </center>
+        </div>      
+
+        <div>
+            
+            <h:form>
+                <p:outputLabel value=" Enter Your Tweet :" rendered="${mainv2ManagedBean.userFriendSame}"/>
+                
+                <table>
+                    <tr><td><p:inputTextarea rows="1" cols="140" value="${mainv2ManagedBean.postTweet}" counter="display" maxlength="140" counterTemplate="{0} characters remaining." autoResize="false" rendered="${mainv2ManagedBean.userFriendSame}" style="width: 80%" /></td></tr>
+                    <tr><td><h:outputText id="display" /></td></tr>
+                </table>
+                
+                
+                <p:commandButton ajax="false" value="Post" action="${mainv2ManagedBean.onClickPostTweet(3)}" rendered="${mainv2ManagedBean.userFriendSame}"/>
+                <p:outputLabel style="color: #3c763d" value="${mainv2ManagedBean.userStatus}" rendered="${mainv2ManagedBean.userFriendSame}"/>
+                <center>
+                <p:commandButton ajax="false" value="${mainv2ManagedBean.viewFriendName}'s Connections!" action="${mainv2ManagedBean.onClickSeeConnections()}" />
+                <p:commandButton ajax="false" value="Tweets by Your Friends" action="${mainv2ManagedBean.onClickFriendTweets()}" rendered="${mainv2ManagedBean.userFriendSame}" />
+                <p:commandButton ajax="false" value="Tweets by You" action="${mainv2ManagedBean.generateHomeTweetList()}" rendered="${mainv2ManagedBean.userFriendSame}" />
+                <p:commandButton ajax="false" value="Your Messages" action="${mainv2ManagedBean.onClickSeeMessages()}" rendered="${mainv2ManagedBean.userFriendSame}" />
+                </center>
+            </h:form>
+        </div>
+        <br/><br/><br/>
+
+        <h2 style="color: #d58512;">Tweets :</h2>
+
+        <c:forEach items="${mainv2ManagedBean.usertabledata}" var="current">                     
+            <h:form>        
+                <p:fieldset legend="${current.userId.username}" toggleable="true" toggleSpeed="500">
+                    <div>
+                        <div align="center"><b><p:outputLabel  value="${current.dateTime}" /></b></div>
+                        <h:panelGrid columns="2" cellpadding="5"> 
+                            <h:graphicImage value="/resources/UserProfilePictures/${current.userId.username}.jpg" height="50" width="50"/>
+                            <p:outputLabel  value="${current.tweet}" />                          
+                        </h:panelGrid>
+                        <center> 
+                            <p:commandButton ajax="false" value="Re-Tweet" action="${mainv2ManagedBean.onClickRetweet(current.tweet,2)}"  update="growl" />                   
+                            <p:commandButton ajax="false" value="Follow User" action="${mainv2ManagedBean.onClickFollow(current.userId.userId,3)}"  update="growl" rendered="${mainv2ManagedBean.isFollowing(current.userId.userId)}"/> 
+                        </center>
+                    </div>                  
+                </p:fieldset>
+            </h:form>  
+            <br />
+            <br />
+        </c:forEach>
+
+    </div>
+    </h:body>
+</html>
+

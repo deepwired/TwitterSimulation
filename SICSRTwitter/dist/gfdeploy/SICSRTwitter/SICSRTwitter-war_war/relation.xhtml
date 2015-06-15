@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>"${mainv2ManagedBean.userName}'s Connections"</title>
+    </h:head>
+    <h:body style="background-image: url('resources/bg.jpg');background-repeat: repeat;">
+        <div style="width: 80%; margin-left: auto;margin-right: auto;">
+
+            <h:form>
+                <p:menubar>
+                    <p:menuitem value="Home" icon="/resources/demo/images/dock/home.png" action="home.xhtml"/>                
+                    <p:menuitem value="Profile" icon="/resources/demo/images/dock/music.png" action="${mainv2ManagedBean.onClickProfile()}"/>
+                    <p:menuitem value="Message" icon="/resources/demo/images/dock/music.png" action="message.xhtml"/>
+                    <p:menuitem value="Connections" icon="/resources/demo/images/dock/video.png" action="relation.xhtml"/>
+                    <p:menuitem value="About the Creators" icon="/resources/demo/images/dock/video.png" action="OurTeam.xhtml"/>                
+                    <p:menuitem value="Log Out" icon="fa fa-mortar-board" action="login.xhtml"/>                            
+              
+                </p:menubar>           
+            </h:form>
+
+
+            <h:form>
+                <p:dock position="bottom">
+                    <p:menuitem value="Home" icon="/resources/Home-icon.png" action="home.xhtml"/>                
+                    <p:menuitem value="Profile" icon="/resources/User-icon.png" action="${mainv2ManagedBean.onClickProfile()}"/>
+                    <p:menuitem value="Message" icon="/resources/message_new.png" action="message.xhtml"/>
+                    <p:menuitem value="Connections" icon="/resources/Relationship-icon.png" action="relation.xhtml"/>
+                    <p:menuitem value="About the Creators" icon="/resources/about-us.png" action="OurTeam.xhtml"/>                
+                </p:dock>
+            </h:form>
+            
+            <div style="float: right;">
+                <center>
+                    <p:outputLabel value="You are Following" style="color: #ff6600;font-weight: bold;" />
+                    <c:forEach items="${mainv2ManagedBean.followingList}" var="current">                     
+                        <p:accordionPanel value="${current.senderId}">
+                            <p:tab title="${mainv2ManagedBean.getUserNameFromId(current.receiverId)}">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <f:facet name="header">
+                                        <p:graphicImage value="/resources/UserProfilePictures/${mainv2ManagedBean.getUserNameFromId(current.receiverId)}.jpg" height="50" width="50" />
+                                    </f:facet>
+                                    <h:form>
+                                        <p:commandButton ajax="false" value="Un Follow this Human" action="${mainv2ManagedBean.onClickUnFollow(current.receiverId,false,4)}"/>    
+                                    </h:form>
+                                </h:panelGrid>
+                            </p:tab>
+                        </p:accordionPanel>
+                    </c:forEach>
+
+                </center>
+            </div>
+
+            <div style="float: left;">
+                <center>
+                    <p:outputLabel value="You are Following" style="color: #ff6600;font-weight: bold;" />                    
+                    <c:forEach items="${mainv2ManagedBean.followerList}" var="current">                     
+                        <p:accordionPanel value="${current.senderId}">
+                            <p:tab title="${current.senderId.username}">
+                                <h:panelGrid  cellpadding="5">
+                                    <f:facet name="header">
+                                        <p:graphicImage value="/resources/UserProfilePictures/${current.senderId.username}.jpg" height="50" width="50" />
+                                    </f:facet>
+                                    <h:form>
+                                        <p:commandButton ajax="false" value="Do not Let this Human Follow me" action="${mainv2ManagedBean.onClickUnFollow(current.senderId.userId,true,4)}"/>    
+                                    </h:form>
+                                </h:panelGrid>
+                            </p:tab>
+                        </p:accordionPanel>
+                    </c:forEach>
+                </center>
+            </div>
+
+        </div>
+
+    </h:body>
+</html>
+

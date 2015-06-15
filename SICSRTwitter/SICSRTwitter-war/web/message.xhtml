@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <h:head>
+        <title>Messages</title>
+    </h:head>
+    <h:body style="background-image: url('resources/bg.jpg');background-repeat: repeat;">
+        <div style="width: 80%; margin-left: auto;margin-right: auto;">
+
+            <h:form>
+                <p:menubar>
+                    <p:menuitem value="Home" icon="/resources" action="home.xhtml"/>                
+                    <p:menuitem value="Profile" icon="/resources/demo/images/dock/music.png" action="${mainv2ManagedBean.onClickProfile()}"/>
+                    <p:menuitem value="Message" icon="/resources/demo/images/dock/music.png" action="message.xhtml"/>
+                    <p:menuitem value="Connections" icon="/resources/demo/images/dock/video.png" action="relation.xhtml"/>
+                    <p:menuitem value="About the Creators" icon="/resources/demo/images/dock/video.png" action="OurTeam.xhtml"/>                
+                    <p:menuitem value="Log Out" icon="fa fa-mortar-board" action="login.xhtml"/>                            
+              
+                </p:menubar>           
+            </h:form>
+
+            <h:form>
+                <p:dock position="bottom">
+                    <p:menuitem value="Home" icon="/resources/Home-icon.png" action="home.xhtml"/>                
+                    <p:menuitem value="Profile" icon="/resources/User-icon.png" action="${mainv2ManagedBean.onClickProfile()}"/>
+                    <p:menuitem value="Message" icon="/resources/message_new.png" action="message.xhtml"/>
+                    <p:menuitem value="Connections" icon="/resources/Relationship-icon.png" action="relation.xhtml"/>
+                    <p:menuitem value="About the Creators" icon="/resources/about-us.png" action="OurTeam.xhtml"/>                
+                </p:dock>
+            </h:form>
+
+
+            <c:forEach items="${mainv2ManagedBean.friendUserName}" var="current">                              
+                <p:accordionPanel multiple="true"><p:tab title="${current.username}">
+                        <p:accordionPanel multiple="true">
+                            <c:forEach items="${mainv2ManagedBean.getMessages(current.userId)}" var="message"> 
+                                <p:tab title="${mainv2ManagedBean.getUserNameFromId(message.senderId.userId)}">
+                                    <h:panelGrid columns="2" cellpadding="10">
+                                        <p:graphicImage value="/resources/UserProfilePictures/${message.senderId.username}.jpg" height="50" width="50"/>
+                                        <h:outputText value="${message.message}  (sent on ${message.timestamp})" />
+                                    </h:panelGrid>
+                                </p:tab>
+                            </c:forEach>                              
+                        </p:accordionPanel>         
+                        <h:form>
+                            <p:inputText value="${mainv2ManagedBean.messageText}" />               
+                            <p:commandButton ajax="false" value="Send Message" action="${mainv2ManagedBean.onClickSendMessage(current.userId)}" />
+                            <p:outputLabel value="${mainv2ManagedBean.messageStatus}" />
+                        </h:form>
+
+                    </p:tab>
+                </p:accordionPanel>
+                <br/>
+                <br/>
+            </c:forEach>
+        </div>
+    </h:body>
+</html>
+

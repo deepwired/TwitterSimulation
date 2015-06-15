@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="login.xhtml" x="575" y="135" zoom="true"/>
+        <Node id="user.xhtml" x="71" y="257" zoom="true"/>
+        <Node id="message.xhtml" x="302" y="356" zoom="false"/>
+        <Node id="OurTeam.xhtml" x="243" y="163" zoom="true"/>
+        <Node id="relation.xhtml" x="29" y="100" zoom="true"/>
+        <Node id="registartion.xhtml" x="308" y="36" zoom="true"/>
+        <Node id="home.xhtml" x="749" y="246" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>
